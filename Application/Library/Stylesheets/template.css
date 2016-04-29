@@ -1,0 +1,439 @@
+/* - CONTENTS
+-------------------------------------------------
+
+Description: Main CSS styles
+Author: Patrick Johnson
+Author URL:http://patrickjohnson.co.uk
+Version:V2
+*/
+
+/* - CONTENTS
+-------------------------------------------------
+
+- Css Reset
+- HTML 5 Reset
+- Global
+- Link Elements
+- Animation
+- Mobile Styles
+- @font-face
+*/
+/*********************************************
+- 1.0 - CSS RESET
+*********************************************/
+
+body,div,dl,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquotes,th,td { 
+  margin:0;
+  padding:0;
+}
+
+table {
+  border-collapse:collapse;
+	border-spacing:0;
+}
+
+fieldset, img {
+  border:0;
+}
+
+ol,ul{
+  list-style:none;
+}
+
+caption,th {
+  text-align:left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-size:100%;
+  font-weight:400;
+}
+
+q:before,q:after {
+  content:'';
+}
+
+abbr,acronym {
+  border:0;
+}
+
+form {
+  margin:0;
+}
+
+/*********************************************
+	- 2.0 -  HTML5 RESET
+*********************************************/
+
+article,aside,dialog,figure,footer,header,hgroup,nav,section {
+  display:block;
+	zoom:1;
+}
+
+audio,canvas,video {
+  display:inline-block;
+  *display:inline;
+  *zoom:1;
+}
+
+h1 {
+  font-family: Arial, serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #7a6a51;
+  letter-spacing: 1.4px;
+}
+
+h2 {
+}
+
+h3 {
+}
+
+p{
+}
+
+/*********************************************
+	- 3.0 -  GLOBAL
+*********************************************/
+/* - 3.1. - STRUCTURAL, containers, sections
+--------------------------------------------*/
+
+html {
+  font-size:100%;
+	-webkit-text-size-adjust:100%;
+	-ms-text-size-adjust:100%;
+}
+
+body {
+	color:#444;
+	font-family: Arial, serif;
+	font-size:1em;
+	line-height:1.4;
+	margin:0;
+	overflow-x:hidden;
+	background:#7A6A51;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:tick;
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:5px;
+    border:1px solid #555;
+	cursor:pointer;
+}
+input[type='checkbox']:checked {
+    background: #cc0000;
+}
+
+input[type='radio'] {
+    -webkit-appearance:tick;
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:5px;
+    border:1px solid #555;
+	cursor:pointer;
+}
+input[type='radio']:checked {
+    background: #cc0000;
+}
+
+.container {
+  display:table;
+  width:890px;
+  margin-left:auto;
+  margin-right:auto;
+  background:#ffffff;
+  height:500px;
+  min-height:500px !important;
+  cursor:default;
+  -moz-border-radius:10px;
+  -ms-border-radius:10px;
+  -o-border-radius:10px;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+  -moz-box-shadow:0 0 2px rgba(0,0,0,0.3),0 3px 5px rgba(0,0,0,0.2);
+  -ms-box-shadow:0 0 2px rgba(0,0,0,0.3),0 3px 5px rgba(0,0,0,0.2);
+  -o-box-shadow:0 0 2px rgba(0,0,0,0.3),0 3px 5px rgba(0,0,0,0.2);
+  -webkit-box-shadow:0 0 2px rgba(0,0,0,0.3),0 3px 5px rgba(0,0,0,0.2);
+  box-shadow:0 0 2px rgba(0,0,0,0.3),0 3px 5px rgba(0,0,0,0.2);
+  position:relative;
+  margin-bottom:50px;
+  margin-top:30px;
+  padding:3px;
+}
+
+.content {
+  display:table;
+  width:890px;
+  height:300px;
+  min-height:300px !important;
+  clear:both;
+  background:#ffffff;
+  position:relative;
+  margin-top:0px;
+}
+
+.header {
+  display:table;
+  width:890px;
+  height:136px;
+  moz-border-radius:10px;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px; 
+  background:url('/application/library/media/template/header.png') no-repeat;
+}
+
+.footer {
+  display:table;
+  width:870px;
+  height:auto;
+  clear:both;
+  background:#ffffff;
+  padding:10px;
+  padding-top:13px;
+  border-top:solid 1px #eeeeee;
+}
+
+.footer .link a{
+  display:block;
+  float:left;
+  font-size:10pt;
+  color:#7a6a51;
+  padding:5px;
+  text-decoration:none;
+}
+
+.footer .link a:hover {
+  text-decoration:underline;
+}
+
+.footer .spacer {
+  display:block;
+  float:left;
+  padding:5px;
+  padding-left:0px;
+  padding-right:0px;
+/*
+  display:block;
+  float:left;
+  width:auto;
+  height:auto;
+  margin-top:-3px;
+  margin-left:5px;
+  margin-right:5px;
+*/
+}
+
+.footercopyright {
+  display:table;
+  clear:both;
+  width:870px;
+  height:auto;
+  padding:10px;
+  font-size:12px;
+  letter-spacing:.26px;
+  position:relative;
+  bottom:0px;
+  background:#ead4a3;
+  moz-border-radius:10px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px; 
+}
+
+.toplinkholder {
+  display:block;
+  clear:both;
+  width:880px;
+  height:25px;
+  padding:5px;
+  border-bottom:solid 3px #eeeeee;
+  border-top:solid 2px #c1b18f;
+  margin-top:1px;
+  margin-bottom:0px;
+  text-transform:uppercase;
+  padding-top:8px;
+  padding-bottom:8px;
+}
+
+.toplinkholder .link {
+  display:block;
+  float:left;
+}
+
+.toplinkholder .link a {
+  font-size:12px;
+  font-weight:bold;
+  color:#7a6a51;
+  letter-spacing: .25px;
+  line-height: 1.8;
+  text-decoration:none;
+}
+
+.toplinkholder a:hover {
+  text-decoration:underline;
+}
+
+.toplinkholder .link_on {
+  display:block;
+  float:left;
+}
+
+.toplinkholder .link_on a {
+  font-size:12px;
+  font-weight:bold;
+  color:#ca0e3a;
+  letter-spacing: .25px;
+  line-height: 1.8;
+  text-decoration:none;
+}
+
+.toplinkholder .link_on a:hover {
+  text-decoration:underline;
+}
+
+.toplinkholder .spacer {
+  display:block;
+  width:1px;
+  height:24px;
+  background:#c3c3c3;
+  float:left;
+  margin-left:12px;
+  margin-right:12px;
+}
+
+.toplinkholder .dropdown {
+  display:block;
+  background:#ead4a3;
+  border:solid 1px #7a6a51;
+  border-top:solid 5px #7a6a51;
+  min-width:200px !important;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+}
+
+.toplinkholder .dropdown .select {
+  display:block;
+  font-size:12px;
+  border:solid 1px #7a6a51;
+  padding:8px;
+  width:180px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:5px;
+}
+
+.toplinkholder .dropdown .citylist {
+  display:block;
+  width:200px;
+  height:280px;
+  overflow-x:auto;
+  clear:both;
+  background:#ffffff;
+}
+
+.toplinkholder .dropdown2 {
+  display:block;
+  background:#ffffff;
+  border:solid 1px #7a6a51;
+  border-top:solid 5px #7a6a51;
+  min-width:200px !important;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+}
+
+.toplinkholder .dropdown2 li a {
+  display:block;
+  clear:both;
+  font-size:10pt;
+  padding:5px;
+  padding-left:15px;
+  margin:1px;
+  margin-bottom:0px;
+  font-weight:normal;
+  border-bottom:solid 1px #eeeeee;
+  color:#333333;
+}
+
+.toplinkholder .dropdown2 li a:hover {
+  background:#eae4d7;
+  border-bottom:solid 1px #ebe0c6;
+}
+
+.toplinkholder .dropdown2 li a:active {
+  background:#d5c8ac;
+  color:#333333;
+  cursor:pointer;
+}
+
+
+.toplinkholder .dropdown li a{
+  display:block;
+  clear:both;
+  font-size:10pt;
+  padding:5px;
+  padding-left:15px;
+  margin:1px;
+  margin-bottom:0px;
+  font-weight:normal;
+  border-bottom:solid 1px #eeeeee;
+  color:#333333;
+}
+
+.toplinkholder .dropdown li a:hover {
+  background:#eae4d7;
+  border-bottom:solid 1px #ebe0c6;
+}
+
+.toplinkholder .dropdown li a:active {
+  background:#d5c8ac;
+  color:#333333;
+  cursor:pointer;
+}
+
+.toplinkholder .dropmenu a {
+  color:#7a6a51;
+}
+
+.toplinkholder .dropmenu a:hover {
+  text-decoration:underline;
+}
+
+.toplinkholder .dropmenu_on a {
+  color:#ca0e3a;
+}
+
+.toplinkholder .dropmenu a:hover {
+  text-decoration:underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

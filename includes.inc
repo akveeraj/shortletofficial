@@ -1,0 +1,13 @@
+<!--#include virtual="/application/controls/ctrl_cachecontrol.pl"-->
+<!--#include virtual="/framework/extensions/mailer/persits.mailer.plugin"-->
+<!--#include virtual="/framework/extensions/mailer/cdonts.mailer.plugin"-->
+<!--#include virtual="/framework/configuration/loadconfig"-->
+<!--#include virtual="/framework/corefiles/functions"-->
+<!--#include virtual="/framework/corefiles/verbs"-->
+<!--#include virtual="/framework/corefiles/database"-->
+<!--#include virtual="/framework/extensions/encryption/SHA.encryption.plugin"-->
+<!--#include virtual="/framework/extensions/encryption/AES.encryption.plugin"-->
+<!--#include virtual="/framework/extensions/encryption/encryption.plugin"-->
+<!--#include virtual="/application/controls/ctrl_variables.pl"-->
+<!--#include virtual="/application/controls/ctrl_customfunctions.pl"-->
+<!--#include virtual="/application/controls/ctrl_seo_verbs.pl"-->

@@ -1,0 +1,536 @@
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' File Name : Functions
+// ' Function  : Holds all basic re-usable subs and public functions
+// ' Author    : Patrick Johnson - me@patrickjohnson.co.uk
+// ' Updated   : 14 August 2014
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' isAlphaNumeric(String)
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Function isAlphaNumeric(String)
+  StrAlphaNumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  
+  For i = 1 TO Len(String)
+    strChar = Mid(String, i, 1)
+	If Instr(StrAlphaNumeric, strChar) Then
+	  AlphaNumeric = "True"
+	Else
+	  AlphaNumeric = "False"
+	End If
+  Next
+  
+    If AlphaNumeric = "True" Then
+	  AlphaNumeric = 1 ' True
+	Else
+	  AlphaNumeric = 0 ' False
+	End If
+  
+  isAlphaNumeric = AlphaNumeric
+  
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Function makeCap(InString)
+
+  If InString > "" Then
+    OutString  = UCase(Left(InString,1)) & LCase(Right(InString, Len(InString) - 1))
+    makeCap    = OutString
+  End If
+
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' AlphaNumericOnly(String)
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Function AlphaNumericOnly(String)
+    StrAlphaNumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	
+	For i = 1 To Len(String)
+	  strChar = Mid(String, i,1)
+	  If Instr(StrAlphaNumeric, strChar) Then
+	    CleanedString = CleanedString & strChar
+	  End If
+	  AlphaNumericOnly = CleanedString
+	Next
+  End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' StringToHex(String)
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Function StringToHex(ByRef pstrString)
+	Dim llngIndex
+	Dim llngMaxIndex
+	Dim lstrHex
+	llngMaxIndex = Len(pstrString)
+	For llngIndex = 1 To llngMaxIndex
+		lstrHex = lstrHex & Right("0" & Hex(Asc(Mid(pstrString, llngIndex, 1))), 2)
+	Next
+	StringToHex = lstrHex
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' HexToString(String)
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Function HexToString(ByRef pstrHex)
+    On Error Resume Next
+	Dim llngIndex
+	Dim llngMaxIndex
+	Dim lstrString
+	llngMaxIndex = Len(pstrHex)
+	For llngIndex = 1 To llngMaxIndex Step 2
+		lstrString = lstrString & Chr("&h" & Mid(pstrHex, llngIndex, 2))
+	Next
+	HexToString = lstrString
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CountString(String)
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CountString(String, Limiter)
+    String       = String
+	Count        = Len(String) - Len(Replace(String,Limiter,""))
+	CountString  = Count
+  End Function
+  
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Public Function GetExtension(FileName)
+  Dim DotPos
+  DotPos = InstrRev(FileName, "." )
+  If DotPos < Len(FileName) Then
+    GetExtension = Mid(FileName, DotPos + 1)
+  Else
+    GetExtension = ""
+  End If
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Public Function stripTags(HTMLstring)
+	Set RegularExpressionObject = New RegExp
+	With RegularExpressionObject
+		.Pattern = "<[^>]+>"
+		.IgnoreCase = True
+		.Global = True
+	End With
+	stripTags = RegularExpressionObject.Replace(HTMLstring, "")
+	Set RegularExpressionObject = nothing
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' PoundsToPennies()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function PoundsToPennies(String)
+    If String > "" Then
+      String = String
+	  String = Replace( String, ".", "" )
+	  String = Replace( String, ",", "" )
+	  PoundsToPennies = String
+	End If
+  End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' DoEncryptData()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function DoEncryptData(String, Pwd )
+    
+	If Len( String ) > "0" Then
+      String = String
+      String = EnCrypt( String, Pwd )
+	  DoEncryptData = String
+	End If
+	
+  End Function
+  
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' ParseCircuit()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+  
+	Public Function ParseCircuit( FieldName, Response )
+	  Collection = Split( Response, Chr(13) )
+		For i = LBound( Collection ) To UBound( Collection )
+		  Item = Replace( Collection( i ), Chr(10), "" )
+			If Instr( Item, FieldName & ":" ) = 1 Then
+			  ParseCircuit = Right( Item, Len( Item ) - Len( FieldName ) - 1 )
+		Exit For
+		
+		End If
+		Next
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' DeleteFile()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+	
+	Public Function DeleteFile( Src )
+	  Set FS = CreateObject("Scripting.FileSystemObject")
+		  Fs.DeleteFile Src
+		Set FS = Nothing
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' RenameFile()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+	
+  Public Function RenameFile( Src1, Src2 )
+	  Set FS = CreateObject("Scripting.FileSystemObject")
+		  FS.MoveFile Server.MapPath( Src1 ), Server.MapPath( Src2 )
+		Set FS = Nothing
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' FixSingleDigits()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function FixSingleDigits( String )
+	  If Len(String) = 1 Then
+		    FixSingleDigits = "0" & String
+		  Else
+			  FixSingleDigits = String
+		End If
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' FixCommas()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+	
+	Public Function FixCommas( String )
+	  FixCommas = Replace( String, ",", "&#8218;" )
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' UrlDecode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function UrlDecode( String )
+    If String > "" Then
+		For Dec = 1 To Len( String )
+		  If Mid( String, Dec, 1 ) = "%" Then
+			  StrUrlDecode = StrUrlDecode & Chr( "&H" & Mid( String, Dec + 1, 2 ))
+				Dec = Dec + 2
+			ElseIf Mid( String, Dec, 1 ) = "+" Then
+			  StrUrlDecode = StrUrlDecode & " "
+			Else
+			  StrUrlDecode = StrUrlDecode & Mid( String, Dec, 1 )
+			End If
+		Next
+	End If
+		  UrlDecode = StrUrlDecode
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' UrlEncode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function UrlEncode( String )
+	  StrEncoded = Server.UrlEncode( String )
+		UrlEncode  = StrEncoded
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' HtmlEncode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function HtmlEncode( String )
+	  StrEncoded = Server.HtmlEncode( String )
+		HtmlEncode = StrEncoded
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' RandomCode()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function RandomCode( String )
+	  NewRandomCode   = Sha1( Timer() & Rnd() )
+		NewRandomCode = Left( NewRandomCode, String )
+		RandomCode    = NewRandomCode
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Bytes to String
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+	
+	Function BytesToStr(bytes)
+	  Set Stream = Server.CreateObject("Adodb.Stream")
+		  Stream.Type = 1 ' adTypeBinary
+			Stream.Open
+			Stream.Write bytes
+			Stream.Position = 0
+			Stream.Type = 2 ' adTypeText
+			Stream.Charset = "iso-8859-1"
+			BytesToStr = Stream.ReadText
+			Stream.Close
+		Set Stream = Nothing
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CalculateAge()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CalculateAge( String )
+	  TodaysDate = Date()
+		IntAge     = DateDiff( "yyyy", String, TodaysDate )
+		
+		If TodaysDate < DateSerial( Year( TodaysDate ), Month( String ), Day( String )) Then
+		  IntAge   = IntAge - 1
+		End If
+		
+		CalculateAge = IntAge
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CalculateDaysPassed()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CalcDaysPassed( String )
+	    InputDate  = String
+		TodaysDate = Date()
+		
+		MonthDiff      = DateDiff( "m", InputDate, TodaysDate )
+		DayDiff        = DateDiff( "d", InputDate, TodaysDate )
+		YearDiff       = DateDiff( "yyyy", InputDate, TodaysDate )
+		CalcDaysPassed = DayDiff
+		
+		'If CalcDaysPassed = 0 Then
+		'  CalcDaysPassed = 0
+		'ElseIf CalcDaysPassed = 1 Then
+		'  CalcDaysPassed = CalcDaysPassed
+		'ElseIf CalcDaysPassed > 30 < 32 Then
+		'  CalcDaysPassed = CalcDaysPassed
+		'Else
+		'  CalcDaysPassed = CalcDaysPassed
+		'End If
+		
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' FixSingleQuotes()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function FixSingleQuotes( String )
+    If Len( String ) > "0" Then
+	  FixSingleQuotes = Replace( String, "\'", "''" )
+	  FixSingleQuotes = Replace( String, "'", "''" )
+	End If
+  End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CalculateVat()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CalculateVat( VatCode, CartValue )
+	  CalcVat      = FormatNumber( CartValue / 100 * VatCode, 2 )
+		CalculateVat = CalcVat
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' AppendMxDiagnostics()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function AppendMxDiagnostics()
+	  MxMessageId         = Sha1( Timer() & Rnd() )
+		AppendMxDiagnostics = Chr(13) & Chr(13) & _
+		                      "-----------------------------------------------------------------------------------------------------------" & Chr(13) & _
+													" Server Protocol   :" & Request.ServerVariables( "SERVER_PROTOCOL" ) & Chr(13) & _
+													" Remote IP Address :" & Request.ServerVariables( "REMOTE_ADDR" )     & Chr(13) & _
+													" MailServer        :" & Fw_MxServer                                  & Chr(13) & _
+													" TimeStamp         :" & Now                 & Chr(13) & _
+													" Message ID        :" & MxMessageId         & Chr(13) & _
+													" Component         :" & MxSelectedComponent & Chr(13) & _
+													"-----------------------------------------------------------------------------------------------------------"
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' PageNotFound()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function PageNotFound()
+	
+	  If fw_OutPut = 1 Then
+		  
+			Response.Status = "404 Not found"
+			WriteError = "<rtext>404 - Page not found</rtext>"
+		
+		Else
+		  'Response.Redirect "/?notfound:1"
+		  
+			WriteError = "<link href='" & fw__ErrorPath & "style.css?v=" & Sha1( Timer() & Rnd()) & "' rel='stylesheet' type='text/css'/>" & _
+			             "<div class='error_box'>" & _
+			             "<div class='fourohfour'>Oops!</div>" & _
+									 "<span class='notfound'>The page does not exist or some other horrible error occured.</span>" & _
+									 "<span class='fwversion'>Powered by Fusebox v" & Fw__BuildVersion & "</span>" & _
+									 "</div>"
+		End If
+		
+		Response.Write WriteError
+	
+	End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' GetCurrentWeek()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function GetCurrentWeek( String )
+	   CurrentYear        = Year(Now)
+		 CurrentMonth     = Month(Now)
+		 SelectedDay      = Int( DayValue ) 
+		 CurrentDate      = Day(Now) & "/" & Month(Now) & "/" & Year(Now)
+		 FirstOfTheMonth  = DateSerial( CurrentYear, CurrentMonth, 1 )
+		 LastOfTheMonth   = DateSerial( CurrentYear, CurrentMonth + 1, 0 )
+		 
+		 Dt = FirstOfTheMonth
+		 
+		 Do Until WeekDay( Dt ) = SelectedDay
+		   Dt = Dt + 1
+		 Loop
+		 
+		 Wk     = 1
+		 SelDay = 0
+		 
+		 Do Until Dt > LastOfTheMonth
+		   Dt = Dt + 7
+			 Wk = Wk + 1
+			 SelDay = SelDay + 1
+		 Loop
+		 
+		 Wk = Wk
+		 
+		 If Wk > "5" Then
+		   Wk = Wk - 1
+		 End If
+		 
+		 GetCurrentWeek = SelDay
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' ConvertToHours()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+  
+	Public Function ConvertToHours( String )
+			TimeMinutes    = String
+			TimeHour       = Int( TimeMinutes / 60 )
+			TimeMin        = TimeMinutes MOD 60
+			TimeString     = TimeHour & ":" & Right( "0" & TimeMin, 2 )
+			ConvertToHours = TimeString
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' GetShowDuration()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function GetShowDuration( StartTime, EndTime )
+		  TmpMins           = DateDiff( "n", StartTime, EndTime )
+			TmpTotalHrs       = TmpMins / 60
+			TmpTotalMins      = TmpMins Mod 60
+			
+			GetShowDuration   = Fix( TmpTotalHrs ) & "." & CInt( TmpTotalMins )
+	End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CountPages( String )
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function CountPages( String )
+    if not (int(String) = String) then String = int(String)+1        
+    CountPages = String
+  End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' exFormatDate()
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+  Public Function exFormatDate( strDate, DateTemplate )
+	  If not IsDate(strDate) Then
+      exFormatDate = strDate
+      Exit Function
+      End If
+	
+    DateTemplate = replace(DateTemplate,"%mmmm",MonthName(DatePart("m",strDate),False),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%mmm",MonthName(DatePart("m",strDate),True),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%mm",right("0" & DatePart("m",strDate),2),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%m",DatePart("m",strDate),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%dddd",WeekDayName(DatePart("w",strDate,1),False),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%ddd",WeekDayName(DatePart("w",strDate,1),True),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%dd",right("0" & DatePart("d",strDate),2),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%d",DatePart("d",strDate),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%yyyy",DatePart("yyyy",strDate),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%yy",right(DatePart("yyyy",strDate),2),1,-1,0)
+    DateTemplate = replace(DateTemplate,"%y",cInt(right(DatePart("yyyy",strDate),2)),1,-1,0)
+    exFormatDate = DateTemplate
+  End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' Full country dropdown generator
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Function BuildCountryDropDown()
+
+  CountryArray = "Afghanistan,Albania,Algeria,Andorra,Angola,Antigua and Barbuda,Argentina,Armenia,Australia,Austria,Azerbaijan,Bahamas," & _
+                 "Bahrain,Bangladesh,Barbados,Belarus,Belgium,Belize,Benin,Bhutan,Bolivia,Bosnia and Herzegovina,Botswana,Brazil,Brunei," & _
+                 "Bulgaria,Burkina Faso,Burundi,Cambodia,Cameroon,Canada,Cape Verde,Central African Republic,Chad,Chile,China,Colombia,Comoros," & _
+                 "Congo (Brazzaville),Congo,Costa Rica,Cote d'Ivoire,Croatia,Cuba,Cyprus,Czech Republic,Denmark,Djibouti,Dominica," & _
+                 "Dominican Republic,East Timor (Timor Timur),Ecuador,Egypt,El Salvador,Equatorial Guinea,Eritrea,Estonia,Ethiopia," & _
+                 "Fiji,Finland,France,Gabon,Georgia,Germany,Greece,Grenada,Guatemala,Guinea,Guinea-Bissau,Guyana,Haiti,Honduras," & _
+                 "Hungary,Iceland,India,Indonesia,Ireland,Israel,Italy,Jamaica,Japan,Jordan,Kiribati,Kyrgyzstan,Laos,Latvia,Lebanon," & _
+                 "Lesotho,Liberia,Libya,Liechtenstein,Lithuania,Luxembourg,Macedonia,Madagascar,Malawi,Malaysia,Maldives,Mali,Malta,Marshall Islands," & _                      
+                 "Mongolia,Morocco,Mozambique,Myanmar,Mexico,Namibia,Nauru,Nepa,Netherlands,New Zealand,Nicaragua,Norway,Oman,Palau,Panama,Papua New Guinea," & _  
+                 "Paraguay,Peru,Philippines,Poland,Portugal,Qatar,Russia,Rwanda,Saint Kitts and Nevis,Saint Lucia,Saint Vincent,San Marino, Sao Tome and Principe," & _ 
+                 "Saudi Arabia,Senegal,Seychelles,Singapore,Slovakia,Slovenia,Solomon Islands,South Africa,Spain,Sri Lanka,Sudan,Suriname," & _
+                 "Swaziland,Sweden,Switzerland,Syria,Taiwan,Tajikistan,Tanzania,Thailand,Togo,Tonga,Trinidad and Tobago,Tunisia,Turkey,Turkmenistan," & _
+                 "Tuvalu,Uganda,Ukraine,United Arab Emirates,United Kingdom,United States,Uruguay,Uzbekistan,Vanuatu,Vatican City,Venezuela," & _ 
+                 "Vietnam,Yemen,Zambia,Zimbabwe" 
+								 
+	NewCountryArray = Split( CountryArray, "," )
+								 
+  For Each Item In NewCountryArray
+	  CountryList = CountryList & "<option value='" & Item & "'>" & Item & "</option>" & vbcrlf
+	Next
+	
+	BuildCountryDropDown = CountryList
+								 
+End Function
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ' CURL Plugin
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Function Curl( Url, Method, RequiresAuthentication, AuthUser, AuthPassword, Params, ContentType )
+  
+  Set CurlObject = Server.CreateObject("MSXML2.ServerXMLHTTP")
+    
+	If RequiresAuthentication = "1" Then
+      CurlObject.Open Method, Url, False, AuthUser, AuthPassword
+	Else
+	  CurlObject.Open Method, Url, False
+	End If
+	
+	If ContentType > "" Then
+	  CurlObject.SetRequestHeader "Content-Type", ContentType
+	Else
+	  CurlObject.SetRequestHeader "Content-Type", "text/json"
+	End If
+	
+	If Params > "" Then
+	  PostData = Params
+	  CurlObject.Send PostData
+	Else
+	  CurlObject.Send
+	End If
+
+	CurlResponse = CurlObject.ResponseText
+	Curl         = CurlResponse
+	
+  Set CurlObject = Nothing 
+  
+End Function
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+%>

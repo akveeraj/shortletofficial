@@ -1,0 +1,52 @@
+.services_header {
+  display:table;
+  clear:both;
+  width:805px;
+  font-size:16px;
+  padding:15px;
+  font-weight:bold;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:30px;
+}
+
+.services_holder {
+  display:block;
+  width:800px;
+  height:458px;
+  margin-left:auto;
+  margin-right:auto;
+  background:#ead4a3;
+  padding-top:15px;
+  padding-left:10px;
+}
+
+.services_logo_spacer {
+  display:block;
+  width:15px;
+  height:83px;
+  float:left;
+}
+
+
+.services_logo a{
+  display:block;
+  float:left;
+  width:140px;
+  height:71px;
+  background:#ead4a3;
+  margin-bottom:15px;
+  text-align:center;
+  border:solid 3px #d6b46a;
+}
+
+.services_logo a:hover {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.services_logo a img{
+  display:block;
+  width:140px;
+  height:71px;
+}

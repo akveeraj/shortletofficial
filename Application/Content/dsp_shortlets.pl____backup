@@ -1,0 +1,294 @@
+<!--#include virtual="/includes.inc"-->
+
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  o_Query = fw_Query
+  o_Query = UrlDecode( o_Query )
+  o_Page  = ParseCircuit( "page", o_Query )
+  
+  If IsEmpty( o_Page ) Then
+    o_Page    = 1
+  Else
+    o_Page    = o_Page
+  End If
+  
+  CurrentPage = o_Page
+  PageSize    = 50
+	
+  Limit1      = ( o_Page - 1 ) * PageSize
+  Limit2      = PageSize
+  RPath       = "/createadvert/account/"
+  RPath       = EncodeText( RPath )
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Build List
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ProSQL = "SELECT COUNT(uIndex) AS NumberOfRecords FROM propertiestorent WHERE status='1'"
+	       Call FetchData( ProSQL, ProRs, ConnTemp )
+					 
+		   AdCount   = ProRs("NumberOfRecords")
+		   PageCount = CountPages( CLng( AdCount ) / CLng( PageSize )) 
+					 
+  If AdCount > "0" Then
+	
+    ProSQL = "SELECT * FROM propertiestorent WHERE status='1' ORDER BY datetimestamp DESC LIMIT " & Limit1 & ", " & Limit2
+		     Call FetchData( ProSQL, ProRs, ConnTemp )
+	
+  End If 
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Build Paging Links
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  PageNumber = 0
+		 
+  For Ni = 1 to PageCount
+  PageNumber = PageNumber + 1
+			 
+  If Ni < CInt(CurrentPage) Then
+    PageLinks = PageLinks & "<span class='pagingon'><a href='/shortlets/doc/?page:" & Ni & "' title='Go to page " & Ni & "'>" & Ni & "</a></span>"
+  ElseIf Ni > CInt(CurrentPage) Then
+    PageLinks = PageLinks & "<span class='pagingon'><a href='/shortlets/doc/?page:" & Ni & "' title='Go to page " & Ni & "'>" & Ni & "</a></span>"
+  Else
+    PageLinks = PageLinks & "<span class='pagingoff'>" & Ni & "</span>"
+  End If
+			 
+  Next
+		 
+  PageLinks = PageLinks 
+  
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+%>
+
+<script type='text/javascript'>
+document.observe("dom:loaded", function() {
+ document.title = "Shortlets to Rent ~ Town and Gown Shortlets. Oxford";
+});
+</script>
+
+<div class='contentheader2'>Shortlets</div>
+<div class='textblock_large' style='border:solid 0px;'>
+To place a shortlet advert on this page, <a href='/createadvert/account/'>click here</a>.
+</div>
+
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  AdNumber = 0
+  
+  If AdCount > "0" Then
+    DO WHILE NOT ProRs.Eof
+      AdNumber = AdNumber + 1
+				
+      If AdNumber Mod 2 = 1 Then
+        TableStyle = "list_on"
+      Else
+        TableStyle = "list_on"
+      End If
+	  
+	  On Error Resume Next
+	  
+      ListingId          = ProRs("listingid")
+      AdvertId           = ProRs("advertid")
+      CustomerId         = ProRs("customerid")
+      DateStamp          = ProRs("datestamp")
+      DateTimeStamp      = ProRs("datetimestamp")
+      LetType            = ProRs("lettype")
+      ShortDescription   = ProRs("shortdescription")
+	  ShortDescription   = DecodeText(ShortDescription)
+      Description        = ProRs("description")
+	  Description        = DecodeText( Description )
+      ShortLetPrice      = ProRs("shortletprice")
+      ShortLetCycle      = ProRs("shortletcycle")
+      ShortLetLength     = ProRs("shortletlength")
+      ShortLetDuration   = ProRs("shortletduration")
+      ShortLetIncBills   = ProRs("shortletincbills")
+      LongLetPrice       = ProRs("longletprice")
+      LongLetCycle       = ProRs("longletcycle")
+      LongLetLength      = ProRs("longletlength")
+      LongLetDuration    = ProRs("longletduration")
+      LongLetIncBills    = ProRs("longletincbills")
+      Thumb              = ProRs("thumb")
+      LargeThumb         = ProRs("srcimage")
+	  IsVertical         = ProRs("isvertical")
+      Status             = ProRs("status")
+      AvailableFromDay   = ProRs("availablefromday")
+      AvailableFromMonth = ProRs("availablefrommonth")
+      AvailableFromYear  = ProRs("availablefromyear")
+      Leased             = ProRs("leased")
+      NextAvail          = AvailableFromDay & " / " & AvailableFromMonth & " / " & AvailableFromYear
+      Reference          = AdvertId
+      LetStatus          = Leased
+	
+      If Len( LargeThumb ) > 39 Then
+	    ShowLargeThumb = 1
+      Else
+	    ShowLargeThumb = 0
+      End If
+	  
+	  If IsVertical = "1" Then ImageWidth = "100" Else ImageWidth="150" End If
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Format Content
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ShortDescription = Replace( ShortDescription, ".", "" )
+  ShortDescription = UCase( ShortDescription )
+  
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Get Image Count
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  ImgCSQL = "SELECT COUNT(uIndex) AS NumberOFRecords FROM galleryphotos WHERE advertid='" & ListingId & "'"
+  Call FetchData( ImgCSQL, ImgCRs, ConnTemp )
+						
+  ImageCount = ImgCRs("NumberOfRecords")
+  ImageCount = CInt( ImageCount ) + 1
+	
+  If ImageCount = "1" Then
+    ImgCountLabel = "<span class='list_imgcount'><a href='javascript://' onclick=""FetchPicture('" & LargeThumb & "', '" & ListingId & "', 'propertiestorent');"">1 of " & ImageCount & " image/s - click to enlarge</a></span>"
+  ElseIf ImageCount > "0" Then
+    ImgCountLabel = "<span class='list_imgcount'><a href='javascript://' onclick=""FetchPicture('" & LargeThumb & "', '" & ListingId & "', 'propertiestorent');"">1 of " & ImageCount & " image/s - click to enlarge</a></span>"
+  Else
+    ImgCountLabel = ""
+  End If
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Format Prices
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  LetPriceLabelStart = "<span class='price'>"
+  LetPriceLabelEnd   = "</span>"
+		
+  If LetType = 1 Then
+		  
+  LetPriceLabel = "<b>Price&nbsp;:</b><br/>&pound;" & LongLetPrice & "&nbsp;per&nbsp;" & LongLetCycle & " - Longlet (minimum " & LongLetLength & "&nbsp;" & LongLetDuration & ")"
+			
+  If LongLetIncBills = "1" or LongLetIncBills = true Then
+    LetPriceLabel = LetPriceLabel & "&nbsp; Including main utility bills"
+  Else
+    LetPriceLabel = LetPriceLabel & "&nbsp; Excluding Bills"
+  End If 
+		
+  ElseIf LetType = 2 Then
+		  
+  LetPriceLabel = "<b>Price&nbsp;:&nbsp;&nbsp;</b>&pound;" & ShortLetPrice & "&nbsp;per&nbsp;" & ShortLetCycle & " - Shortlet (minimum " & ShortLetLength & "&nbsp;" & ShortLetDuration & ")"
+			
+  If ShortLetIncBills = "1" or ShortLetIncBills = true Then
+    LetPriceLabel = LetPriceLabel & "&nbsp; Including main utility bills"
+  Else
+    LetPriceLabel = LetPriceLabel & "&nbsp; Excluding Bills"
+  End If
+		
+  Else
+		
+  LongPriceLabel  = "<b>Price&nbsp;:&nbsp;&nbsp;</b>&pound;" & LongLetPrice & "&nbsp;per&nbsp;" & LongLetCycle & " - Longlet (minimum " & LongLetLength & "&nbsp;" & LongLetDuration & ")"
+  ShortPriceLabel = "<br/>&pound;" & ShortLetPrice & "&nbsp;per&nbsp;" & ShortLetCycle & " - Shortlet (minimum " & ShortLetLength & "&nbsp;" & ShortLetDuration & ")" 
+		  
+  If LongLetIncBills = "1" or LongLetIncBills = true Then
+    LongPriceLabel = LongPriceLabel & "&nbsp; Including main utility bills"
+  Else
+    LongPriceLabel = LongPriceLabel & "&nbsp; Excluding Bills"
+  End If
+			
+  If ShortLetIncBills = "1" or ShortLetIncBills = true Then
+    ShortPriceLabel = ShortPriceLabel & "&nbsp; Including main utility bills"
+  Else
+    ShortPriceLabel = ShortPriceLabel & "&nbsp; Excluding Bills"
+  End If
+			
+  LetPriceLabel = LongPriceLabel & ShortPriceLabel
+			
+  End If
+		
+  LetPriceLabel = LetPriceLabelStart & LetPriceLabel & LetPriceLabelEnd
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+%>
+
+<style type='text/css'>
+.list_picture img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:<%=ImageWidth%>px;
+  z-index:800; 
+}
+</style>
+
+<div class='<%=TableStyle%>'>
+
+  <span class='list_cell' style='width:225px;'>
+<%
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ' Get Property Image
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+  If LetStatus = 1 AND ShowLargeThumb = 1 or LetStatus = true AND ShowLargeThumb = 1 Then
+
+  Response.Write "<div class='cell' style='width:215px;'>" & vbcrlf & _
+                 "<div class='list_picture' style='margin-right:5px;'>" & vbcrlf & _
+                 "<a href='javascript://' onclick=""FetchPicture('" & LargeThumb & "', '" & ListingId & "', 'propertiestorent');"" title='Click to enlarge'>" & vbcrlf & _
+                 "<span class='list_picture_let'></span><img src='/getpropertyimg/actions/?output:1;advertid:" & Advertid & "'/>" & vbcrlf & _
+                 "</a></div>" & vbcrlf & _
+                 ImgCountLabel & vbcrlf & _
+                 "<span class='list_availabledate'>Next Available:&nbsp;" & NextAvail & "</span>" & vbcrlf & _
+                 "</div>" & vbcrlf & vbcrlf
+	
+  ElseIf LetStatus = 1 AND ShowLargeThumb = 0 or LetStatus = true AND ShowLargeThumb = 0 Then
+  Response.Write "<div class='cell' style='width:215px;'>" & _
+                 "<div class='let_nopic'><span class='letnoimg'>&nbsp;</span></div>" & _
+                 "<span class='list_availabledate'>Next Available:&nbsp;" & NextAvail & "</span>" & _
+                 "</div>" 
+	
+  ElseIf LetStatus = 0 AND ShowLargeThumb = 1 or LetStatus = false AND ShowLargeThumb = 1 Then
+  Response.Write "<div class='cell' style='width:215px;'>" & vbcrlf & _
+                 "<div class='list_picture' style='margin-right:5px;'>" & vbcrlf & _
+                 "<a href='javascript://' onclick=""FetchPicture('" & LargeThumb & "', '" & ListingId & "', 'propertiestorent');"" title='Click to enlarge'>" & vbcrlf & _
+                 "<img src='/getpropertyimg/actions/?output:1;advertid:" & Advertid & "' width=""" & ImageWidth & """/>" & vbcrlf & _
+                 "</a></div>" & vbcrlf & _
+                 ImgCountLabel & vbcrlf & _
+                 "</div>" & vbcrlf
+	
+  ElseIf LetStatus = 0 AND ShowLargeThumb = 0 or LetStatus = false AND ShowLargeThumb = 0 Then
+  Response.Write "<div class='cell' style='width:215px;'>" & _
+                 "<div class='notlet_nopic'><span class='notletnoimg' title='No Photo'>&nbsp;</span></div>" & _
+                 "</div>"
+	
+  Else
+  Response.Write "<div class='cell' style='width:215px;'>" & _
+                 "<div class='notlet_nopic'><span class='notletnoimg' title='No Photo'>&nbsp;</span></div>" & _
+                 "</div>"
+  End If
+	
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+%>
+  </span>
+  
+  
+  
+  <span class='list_cell'>
+    <span class='list_smalldescription'><%=ShortDescription%></span>
+    <span class='list_longdescription'><%=Description%></span>
+	<span class='list_letpricelabel'><%=LetPriceLabel%></span>
+	<span class='list_contactinfo'>--- contact info ---</span>
+  </span>
+  
+</div>
+
+<% 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    ProRs.MoveNext
+    Loop
+		
+  Else
+    Response.Write "<div style='display:block; clear:both; margin-left:0px;'><img src='/application/library/media/torent_splash1.png'/></div>"
+  End If
+
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------
+%>

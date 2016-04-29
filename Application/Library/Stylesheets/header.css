@@ -1,0 +1,117 @@
+/* header styles **/
+
+.header_holder {
+  display:table;
+  clear:both;
+  width:890px;
+  text-align:center;
+  border-bottom:solid 3px #eeeeee;
+  border-top:solid 2px #c1b18f;
+  margin-top:1px;
+  z-index:999;
+}
+
+.header_holder .dropdown {
+  display:block;
+  background:#ffffff;
+  border:solid 1px #7a6a51;
+  border-top:solid 5px #7a6a51;
+  min-width:200px !important;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  box-shadow: 2px 2px 5px 0px rgba(133,133,133,1);
+  position:relative;
+  top:50px;
+  z-index:1000;
+}
+
+.header_holder .dropdown .citylist {
+  display:block;
+  width:200px;
+  height:280px;
+  overflow-x:auto;
+  clear:both;
+  background:#ffffff;
+}
+
+.header_holder .dropdown li a {
+  display:block;
+  clear:both;
+  text-align:left;
+  font-size:10pt;
+  padding:5px;
+  font-weight:normal;
+  background:#ffffff;
+  border-bottom:solid 1px #eeeeee;
+  padding-left:20px;
+  margin:1px;
+  color:#000000;
+}
+
+.header_holder .dropdown li a:hover {
+  text-decoration:underline;
+  background:#eae4d7;
+}
+
+.header_holder ul {
+  display:inline-block;
+}
+
+.header_holder .link a{
+  display:inline-block;
+  font-size:12px;
+  font-weight:bold;
+  color:#7a6a51;
+  letter-spacing: .25px;
+  line-height:1.8;
+  text-decoration:none;
+  text-transform: uppercase;
+  padding:5px;
+  margin-top:5px;
+  margin-bottom:5px;
+  vertical-align:top;
+}
+
+.header_holder .link a:hover {
+  text-decoration:underline;
+}
+
+.header_holder .link_on a{
+  display:inline-block;
+  font-size:12px;
+  font-weight:bold;
+  color:#ca0e3a;
+  letter-spacing: .25px;
+  line-height:1.8;
+  text-decoration:none;
+  text-transform: uppercase;
+  padding:5px;
+  margin-top:5px;
+  margin-bottom:5px;
+  vertical-align:top;
+}
+
+.header_holder .link_on a:hover {
+  text-decoration:underline;
+}
+
+.header_holder .spacer {
+  display:inline-block;
+  width:1px;
+  height:25px;
+  background:#c3c3c3;
+  margin-left:5px;
+  margin-right:5px;
+  margin-top:8px;
+  vertical-align:top;
+}
+
+.header_holder .weathericon {
+  display:inline-block;
+  width:34px;
+  height:31px;
+  background:url('/application/library/media/weathericon.png');
+  vertical-align:top;
+  margin-top:5px;
+  margin-left:10px;
+} 

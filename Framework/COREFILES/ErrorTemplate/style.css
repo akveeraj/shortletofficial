@@ -1,0 +1,44 @@
+
+
+.error_box {
+ display:block;
+ padding:20px;
+ margin-left:auto;
+ margin-right:auto;
+ text-align:center;
+ clear:both;
+ margin-top:80px;
+}
+
+.error_box div.fourohfour {
+  display:table;
+  font-size:100px;
+  font-weight:bold;
+  clear:both;
+	color:#000000;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:15px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.error_box span.notfound {
+  display:block;
+  font-size:9pt;
+	clear:both;
+	font-weight:normal;
+}
+
+.error_box span.fwversion {
+  display:table;
+	clear:both;
+	margin-top:5px;
+	font-size:8pt;
+	color:#ffffff;
+	background:#999999;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:15px;
+	padding:3px;
+}

@@ -1,0 +1,53 @@
+<!--#include virtual="/includes.inc"-->
+
+ 
+<script type='text/javascript'>
+document.observe("dom:loaded", function() {
+ document.title = "Ad Cost ~ Town and Gown Shortlets. Oxford";
+});
+</script>
+
+<div class='contentheader2'>Ad Cost</div>
+<div class='textblock' style='border:solid 0px;'>
+&nbsp;
+</div>
+
+<div class='dash_subholder' style='display:table; margin-left:15px; width:auto; border:solid 1px #f3e8cb;'>
+
+<span class='row' style='border-bottom:solid 4px #eeeeee;'>
+<span class='cell' style='width:230px; margin-top:5px; font-size:16px; font-weight:bold;'><b>Period</b></span>
+<span class='cell' style='width:150px; margin-top:5px; font-size:16px; font-weight:bold; text-align:center;'><b>Standard Listing</b></span>
+<span class='cell' style='width:140px; margin-top:5px; font-size:16px; font-weight:bold; text-align:center;'><b>Featured Listing</b></span>
+</span>
+
+<span class='row'>
+<span class='cell' style='width:230px; margin-top:5px; font-size:16px; font-weight:bold;'><b>1 Week</b></span>
+<span class='cell' style='width:150px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;7.50</span>
+<span class='cell' style='width:140px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;15.00</span>
+</span>
+
+<span class='row'>
+<span class='cell' style='width:230px; margin-top:5px; font-size:16px; font-weight:bold;'><b>2 Week</b></span>
+<span class='cell' style='width:150px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;15.00</span>
+<span class='cell' style='width:140px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;30.00</span>
+</span>
+
+<span class='row'>
+<span class='cell' style='width:230px; margin-top:5px; font-size:16px; font-weight:bold;'><b>1 Month</b></span>
+<span class='cell' style='width:150px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;25.00</span>
+<span class='cell' style='width:140px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;45.00</span>
+</span>
+
+<span class='row'>
+<span class='cell' style='width:230px; margin-top:5px; font-size:16px; font-weight:bold;'><b>3 Months</b></span>
+<span class='cell' style='width:150px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;60.00</span>
+<span class='cell' style='width:140px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;120.00</span>
+</span>
+
+<span class='row'>
+<span class='cell' style='width:230px; margin-top:5px; font-size:16px; font-weight:bold;'><b>6 Months</b></span>
+<span class='cell' style='width:150px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;100.00</span>
+<span class='cell' style='width:140px; margin-top:5px; color:#000000; font-size:16px; font-weight:bold; text-align:center;'>&pound;200.00</span>
+</span>
+
+</div>

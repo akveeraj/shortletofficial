@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+ 
+<config>
+
+<fusebox>
+  <version>8.6</version>
+	<builddate>19.12.2012</builddate>
+	<revision>6</revision> 
+</fusebox>
+
+<database>
+  <usedatabase>1</usedatabase>
+	<dbtype>2</dbtype>
+	<odbcdriver>MySQL ODBC 5.2 Unicode Driver</odbcdriver>
+	<odbcdbname></odbcdbname>
+	<odbcdbfilename></odbcdbfilename>
+	<odbcdbusername></odbcdbusername>
+	<odbcdbpassword></odbcdbpassword>
+	<odbcdblocation></odbcdblocation>
+	<sqldbname>shortlets</sqldbname>
+	<sqldbserver>townandgownlettingscouk.cxaywhgpje6j.eu-west-1.rds.amazonaws.com</sqldbserver>
+	<sqldbport>3306</sqldbport>
+	<sqldbusername>serveradmin</sqldbusername>
+	<sqldbpassword>Cecest9Elysium08512</sqldbpassword>
+  
+  
+</database>
+
+
+<sslconfig>
+  <usessl>0</usessl>
+	<sslport></sslport>
+	<forcessl>0</forcessl>
+</sslconfig>
+
+
+<email>
+  <mxserver>smtp.mandrillapp.com</mxserver> 
+	<mxport>587</mxport>
+	<mxuser>support@bookmonsters.co.uk</mxuser>
+	<mxpassword>L3P4tyEdVOYaVI0v7b1m3Q</mxpassword>
+	<mxusessl>0</mxusessl>
+	<mxtimeout>60</mxtimeout>
+	<mxsmtpauth>1</mxsmtpauth>
+	<mxcomponent>2</mxcomponent>
+	<mxsysusername>Administrator</mxsysusername>
+	<mxsyspassword>elysium08512</mxsyspassword>
+	<mxsysdomain></mxsysdomain>
+</email>
+
+
+<directories>
+  <imgbucket>/application/library/media/</imgbucket>
+	<appname>Town and Gown Shortlets UK</appname>
+	<fqdn>www.townandgownshortlets.uk</fqdn>
+	<primaryfqdn>www.townandgownshortlets.uk</primaryfqdn>
+	<adminfqdn>admin.townandgownshortlets.co.uk</adminfqdn>
+	<usessl>0</usessl>
+	<sslport>443</sslport>
+	<applanguage>pl</applanguage>
+	<rootpath>/</rootpath>
+	<frameworkpath>/framework</frameworkpath>
+	<errorpath>/framework/corefiles/errortemplate/</errorpath>
+	<apppath>/application</apppath>
+	<actionspath>/application/actions</actionspath>
+	<contentpath>/application/content</contentpath>
+	<templatepath>/application/content/template</templatepath>
+	<indexpath>/application/content</indexpath>
+	<indexfile>dsp_index</indexfile>
+</directories>
+
+
+<contactdetails>
+  <telephone1></telephone1>
+	<telephone2></telephone2>
+	<address></address>
+	<banksortcode>00-00-00</banksortcode>
+	<bankaccount>12345678</bankaccount>
+	<bankname>Acme Bank</bankname>
+	<nameonaccount>Town and Gown Lettings</nameonaccount>
+</contactdetails>
+
+<paypaldetails>
+  <email></email>
+	<currency></currency>
+	<bearerkey></bearerkey>
+</paypaldetails>
+
+<chargevat>
+  <dochargevat>1</dochargevat>
+  <vatcode>20</vatcode>
+</chargevat>
+
+<stripeconfig>
+  <currency>GBP</currency>
+	<testsecretkey>-</testsecretkey>
+	<testpublishablekey>-</testpublishablekey>
+	<livesecretkey>-</livesecretkey>
+	<livepublishablekey>-</livepublishablekey>
+	<testmode>1</testmode> 
+</stripeconfig>
+
+
+<fbopengraph>
+  <fbappid></fbappid>
+	<fbprefix></fbprefix>
+	<fbsitename></fbsitename>
+</fbopengraph>
+
+
+<encryption>
+  <useencryption>1</useencryption>
+	<encryptionkey>AJALWIYSJAH64845ASQQTYAL565589</encryptionkey> 
+	<encryptiontype>RC4</encryptiontype>
+	<encryptionkeypath>\framework\extensions\encryption</encryptionkeypath>
+	
+</encryption>
+
+</config>
